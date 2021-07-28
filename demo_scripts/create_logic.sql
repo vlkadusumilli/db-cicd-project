@@ -1,28 +1,23 @@
-CREATE OR REPLACE PROCEDURE secure_dml
-IS
+CREATE OR REPLACE TRIGGER set_date_bi
+  BEFORE INSERT ON trees
+  FOR EACH ROW
 BEGIN
-  IF TO_CHAR (SYSDATE, 'HH24:MI') NOT BETWEEN '08:00' AND '18:00'
-        OR TO_CHAR (SYSDATE, 'DY') IN ('SAT', 'SUN') THEN
-	RAISE_APPLICATION_ERROR (-20205, 
-		'You may only make changes during normal office hours');
-  END IF;
-END secure_dml;
+
+  if :new.submition_date is null THEN
+    :new.submition_date := systimestamp;
+  end if;
+
+END set_date_bi;
 /
 
-CREATE OR REPLACE TRIGGER secure_employees
-  BEFORE INSERT OR UPDATE OR DELETE ON employees
-BEGIN
-  secure_dml;
-END secure_employees;
-/
+ALTER TRIGGER set_date_bi ENABLE;
 
-ALTER TRIGGER secure_employees ENABLE;
-
-CREATE OR REPLACE PROCEDURE get_a_raise
+CREATE OR REPLACE PROCEDURE admin_email_set
 IS
 BEGIN
-        update EMPLOYEES
-           set salary = salary*10;
+        update trees
+           set submitter_email = 'jeff@thatjeff.com'
+        where submitter_email is null;
 
-end get_a_raise;
+end admin_email_set;
 /

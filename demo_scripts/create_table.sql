@@ -1,24 +1,15 @@
-CREATE TABLE employees
-    ( employee_id    NUMBER(6)
-    , first_name     VARCHAR2(20)
-    , last_name      VARCHAR2(25)
-	 CONSTRAINT     emp_last_name_nn  NOT NULL
-    , email          VARCHAR2(25)
-	CONSTRAINT     emp_email_nn  NOT NULL
-    , phone_number   VARCHAR2(20)
-    , hire_date      DATE
-	CONSTRAINT     emp_hire_date_nn  NOT NULL
-    , job_id         VARCHAR2(10)
-	CONSTRAINT     emp_job_nn  NOT NULL
-    , salary         NUMBER(8,2)
-    , commission_pct NUMBER(2,2)
-    , manager_id     NUMBER(6)
-    , department_id  NUMBER(4)
-    , CONSTRAINT     emp_salary_min
-                     CHECK (salary > 0) 
-    , CONSTRAINT     emp_email_uk
-                     UNIQUE (email)
+CREATE TABLE trees
+    ( tree_id           NUMBER(6)
+    , tree_name         VARCHAR2(200)
+    , tree_street       VARCHAR2(500)
+    , tree_city         VARCHAR2(200)
+    , tree_state        VARCHAR2(200)
+    , tree_zip          NUMBER
+    , tree_description  VARCHAR2(4000)
+    , submitter_name    VARCHAR2(500)
+    , submitter_email   VARCHAR2(500)
+    , submition_date    timestamp
     ) ;
 
-CREATE UNIQUE INDEX emp_emp_id_pk
-ON employees (employee_id) ;
+CREATE UNIQUE INDEX tree_id_pk
+ON trees (tree_id) ;
