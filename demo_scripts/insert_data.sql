@@ -1,4 +1,4 @@
-PROMPT INSERTING into EMPLOYEES
+PROMPT INSERTING into TREES
 set define off
 begin
 INSERT INTO trees VALUES 
